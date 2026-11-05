@@ -75,14 +75,14 @@
         <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
         <span class="font-semibold text-emerald-400">Admin Mode</span>
       </span>
-      <div class="flex items-center gap-2">
-        <button id="openAddModalBtn" type="button" class="bg-brand-600 hover:bg-brand-500 text-white px-3 py-1.5 rounded-xl font-semibold text-xs transition shadow-md flex items-center gap-1.5 cursor-pointer">
-          <i class="fa-solid fa-plus text-[11px]"></i> Add Item
+      <div class="flex items-center gap-1.5">
+        <button id="openAddModalBtn" type="button" class="bg-brand-600 hover:bg-brand-500 text-white px-2.5 py-1.5 rounded-xl font-semibold text-xs transition shadow-md flex items-center gap-1 cursor-pointer">
+          <i class="fa-solid fa-plus text-[10px]"></i> Add
         </button>
-        <button id="exportJsonBtn" type="button" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-xl font-semibold text-xs transition shadow-md flex items-center gap-1.5 cursor-pointer">
-          <i class="fa-solid fa-download text-[11px]"></i> Export links.json
+        <button id="exportJsonBtn" type="button" class="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1.5 rounded-xl font-semibold text-xs transition shadow-md flex items-center gap-1 cursor-pointer">
+          <i class="fa-solid fa-download text-[10px]"></i> Export JSON
         </button>
-        <button id="logoutBtn" type="button" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer">
+        <button id="logoutBtn" type="button" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer">
           Exit
         </button>
       </div>
@@ -167,13 +167,15 @@
   </div>
 
   <script>
-    // GitHub repository raw JSON data URL
     const RAW_GITHUB_JSON_URL = 'https://raw.githubusercontent.com/walrus245/treedesk25/main/links.json';
     const LOCAL_KEY = 'linkvault_items_data';
 
     let isAdmin = false;
     let currentTab = 'links';
-    let allItems = [];
+    let allItems = [
+      { id: '1', category: 'links', title: 'Google', url: 'https://google.com', icon: 'fa-solid fa-magnifying-glass' },
+      { id: '2', category: 'tools', title: 'GitHub', url: 'https://github.com', icon: 'fa-brands fa-github' }
+    ];
 
     const adminBanner = document.getElementById('adminBanner');
     const linksContainer = document.getElementById('linksContainer');
@@ -196,56 +198,13 @@
     const closeLinkModalBtn = document.getElementById('closeLinkModalBtn');
     const logoutBtn = document.getElementById('logoutBtn');
 
-    if (tabLinksBtn) tabLinksBtn.addEventListener('click', () => switchTab('links'));
-    if (tabToolsBtn) tabToolsBtn.addEventListener('click', () => switchTab('tools'));
+    // Render immediately with defaults so screen is never blank
+    renderItems();
 
-    function switchTab(tab) {
-      currentTab = tab;
-      const activeClass = 'py-2.5 rounded-xl transition text-white bg-gradient-to-r from-brand-600 to-indigo-600 shadow-md flex items-center justify-center gap-2 cursor-pointer';
-      const inactiveClass = 'py-2.5 rounded-xl transition text-slate-400 hover:text-white flex items-center justify-center gap-2 cursor-pointer';
-      if (tabLinksBtn && tabToolsBtn) {
-        tabLinksBtn.className = tab === 'links' ? activeClass : inactiveClass;
-        tabToolsBtn.className = tab === 'tools' ? activeClass : inactiveClass;
-      }
-      renderItems();
-    }
-
-    // Fetches live from GitHub raw URL with timestamp cache buster
+    // Fetch live links asynchronously in the background
     async function fetchLiveLinks() {
       try {
-        const response = await fetch(`${RAW_GITHUB_JSON_URL}?t=${Date.now()}`);
-        if (response.ok) {
-          allItems = await response.json();
-          localStorage.setItem(LOCAL_KEY, JSON.stringify(allItems));
-        } else {
-          loadFromLocal();
-        }
-      } catch (err) {
-        loadFromLocal();
-      }
-      renderItems();
-    }
-
-    function loadFromLocal() {
-      const saved = localStorage.getItem(LOCAL_KEY);
-      if (saved) {
-        try { allItems = JSON.parse(saved); } catch (e) { allItems = []; }
-      }
-    }
-
-    function saveItems() {
-      localStorage.setItem(LOCAL_KEY, JSON.stringify(allItems));
-      renderItems();
-    }
-
-    function renderItems() {
-      if (!linksContainer) return;
-      linksContainer.innerHTML = '';
-
-      const filteredItems = allItems.filter(item => (item.category || 'links') === currentTab);
-
-      if (filteredItems.length === 0) {
-        if (emptyStateText) emptyStateText.textContent = `No ${currentTab} created yet.`;
+        const response = await fetch(`${RAW_GITHUB_JSON_URL}?t=${Date.now()}`); if (response.ok) { const data = await response.json(); if (Array.isArray(data) && data.length > 0) { allItems = data; localStorage.setItem(LOCAL_KEY, JSON.stringify(allItems)); renderItems(); } } } catch (err) { const saved = localStorage.getItem(LOCAL_KEY); if (saved) { try { allItems = JSON.parse(saved); renderItems(); } catch (e) {} } } }  if (tabLinksBtn) tabLinksBtn.addEventListener('click', () => switchTab('links')); if (tabToolsBtn) tabToolsBtn.addEventListener('click', () => switchTab('tools'));  function switchTab(tab) { currentTab = tab; const activeClass = 'py-2.5 rounded-xl transition text-white bg-gradient-to-r from-brand-600 to-indigo-600 shadow-md flex items-center justify-center gap-2 cursor-pointer'; const inactiveClass = 'py-2.5 rounded-xl transition text-slate-400 hover:text-white flex items-center justify-center gap-2 cursor-pointer'; if (tabLinksBtn && tabToolsBtn) { tabLinksBtn.className = tab === 'links' ? activeClass : inactiveClass; tabToolsBtn.className = tab === 'tools' ? activeClass : inactiveClass; } renderItems(); }  function saveItems() { localStorage.setItem(LOCAL_KEY, JSON.stringify(allItems)); renderItems(); }  function renderItems() { if (!linksContainer) return; linksContainer.innerHTML = '';  const filteredItems = allItems.filter(item => (item.category \vert{}\vert{} 'links') === currentTab);  if (filteredItems.length === 0) { if (emptyStateText) emptyStateText.textContent = `No ${currentTab} created yet.`;
         if (emptyState) emptyState.classList.remove('hidden');
         return;
       }
@@ -267,97 +226,4 @@
               </div>
               <span class="truncate text-sm font-semibold">${escapeHtml(item.title)}</span>
             </div>
-            <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-brand-400 group-hover:translate-x-1 transition-all"></i>
-          </a>
-          ${isAdmin ? `
-            <div class="absolute right-3 flex items-center gap-1 bg-slate-950/90 p-1 rounded-xl border border-slate-800 shadow-xl z-10">
-              <button type="button" onclick="window.handleEditLink('${item.id}')" class="p-1.5 text-slate-400 hover:text-brand-400 text-xs transition cursor-pointer">
-                <i class="fa-solid fa-pen"></i>
-              </button>
-              <button type="button" onclick="window.handleDeleteLink('${item.id}')" class="p-1.5 text-slate-400 hover:text-red-400 text-xs transition cursor-pointer">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            </div>
-          ` : ''}
-        `;
-        linksContainer.appendChild(linkEl);
-      });
-    }
-
-    // Admin authentication
-    if (authForm) {
-      authForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (adminPasscode && adminPasscode.value.trim() === 'password123') {
-          isAdmin = true;
-          if (authModal) authModal.classList.add('hidden');
-          if (adminBanner) adminBanner.classList.remove('hidden');
-          if (authBtnLabel) authBtnLabel.textContent = 'Admin Unlocked';
-          if (authError) authError.classList.add('hidden');
-          adminPasscode.value = '';
-          renderItems();
-        } else if (authError) {
-          authError.textContent = 'Incorrect passcode.';
-          authError.classList.remove('hidden');
-        }
-      });
-    }
-
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', () => {
-        isAdmin = false;
-        if (adminBanner) adminBanner.classList.add('hidden');
-        if (authBtnLabel) authBtnLabel.textContent = 'Admin Unlock';
-        renderItems();
-      });
-    }
-
-    if (openAuthModalBtn) {
-      openAuthModalBtn.addEventListener('click', () => {
-        if (!isAdmin && authModal) authModal.classList.remove('hidden');
-      });
-    }
-
-    if (closeAuthModalBtn) {
-      closeAuthModalBtn.addEventListener('click', () => {
-        if (authModal) authModal.classList.add('hidden');
-      });
-    }
-
-    if (openAddModalBtn) {
-      openAddModalBtn.addEventListener('click', () => {
-        if (linkModalTitle) linkModalTitle.textContent = 'Add New Item';
-        const linkId = document.getElementById('linkId');
-        const linkCategory = document.getElementById('linkCategory');
-        if (linkId) linkId.value = '';
-        if (linkForm) linkForm.reset();
-        if (linkCategory) linkCategory.value = currentTab;
-        if (linkModal) linkModal.classList.remove('hidden');
-      });
-    }
-
-    // Export links.json file to commit to GitHub
-    if (exportJsonBtn) {
-      exportJsonBtn.addEventListener('click', () => {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allItems, null, 2));
-        const downloadAnchor = document.createElement('a');
-        downloadAnchor.setAttribute("href", dataStr);
-        downloadAnchor.setAttribute("download", "links.json");
-        document.body.appendChild(downloadAnchor);
-        downloadAnchor.click();
-        downloadAnchor.remove();
-      });
-    }
-
-    if (closeLinkModalBtn) {
-      closeLinkModalBtn.addEventListener('click', () => {
-        if (linkModal) linkModal.classList.add('hidden');
-      });
-    }
-
-    if (linkForm) {
-      linkForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (!isAdmin) return;
-
-        const id = document.
+            <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-brand-400 group-hover:translate-x-1 transition-
