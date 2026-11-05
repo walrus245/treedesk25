@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LinkVault</title>
+  <title>Royal Math</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome Icons -->
@@ -16,11 +16,26 @@
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
           colors: {
             brand: {
-              50: '#eef2ff', 100: '#e0e7ff', 400: '#818cf8',
-              500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          },
+          animation: {
+            'glow-pulse': 'glow 3s infinite alternate',
+          },
+          keyframes: {
+            glow: {
+              '0%': { opacity: '0.4', transform: 'scale(1)' },
+              '100%': { opacity: '0.8', transform: 'scale(1.05)' }
             }
           }
         }
@@ -29,7 +44,10 @@
   </script>
 
   <style>
-    body { background-color: #090d16; font-family: 'Inter', sans-serif; }
+    body {
+      background-color: #090d16;
+      font-family: 'Inter', sans-serif;
+    }
     .glass-card {
       background: rgba(15, 23, 42, 0.75);
       backdrop-filter: blur(12px);
@@ -39,35 +57,39 @@
       border-color: rgba(99, 102, 241, 0.4);
       box-shadow: 0 10px 30px -10px rgba(79, 70, 229, 0.25);
     }
-    .link-hover { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-    /* Prevent icons from intercepting button clicks */
-    button i, a i { pointer-events: none; }
+    .link-hover {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
   </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative overflow-x-hidden">
 
   <!-- Ambient Glow Background -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-brand-600/30 to-purple-600/20 blur-[120px] rounded-full"></div>
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-brand-600/30 to-purple-600/20 blur-[120px] rounded-full animate-glow-pulse"></div>
   </div>
 
   <!-- Header Banner -->
   <main class="w-full max-w-md mx-auto px-4 py-10 flex-grow flex flex-col items-center relative z-10">
+    
+    <!-- Title Header -->
     <div class="w-full text-center mb-8">
-      <div class="inline-flex items-center justify-center p-3 mb-3 bg-brand-600/10 border border-brand-500/20 rounded-2xl text-brand-400 shadow-lg">
+      <div class="inline-flex items-center justify-center p-3 mb-3 bg-brand-600/10 border border-brand-500/20 rounded-2xl text-brand-400 shadow-lg shadow-brand-500/10">
         <i class="fa-solid fa-vault text-2xl"></i>
       </div>
-      <h1 class="text-4xl font-black tracking-tight text-white mb-2">Link<span class="bg-gradient-to-r from-brand-400 to-purple-400 bg-clip-text text-transparent">Vault</span></h1>
-      <p class="text-xs text-slate-400 font-medium tracking-wide">Curated hub of quick links & useful tools</p>
+      <h1 class="text-4xl font-black tracking-tight text-white mb-2">Royal<span class="bg-gradient-to-r from-brand-400 to-purple-400 bg-clip-text text-transparent">Math</span></h1>
+      <p class="text-xs text-slate-400 font-medium tracking-wide">Your hub for quick links & useful tools</p>
     </div>
 
     <!-- Navigation Tabs -->
     <div class="w-full grid grid-cols-2 p-1.5 bg-slate-900/90 border border-slate-800/80 rounded-2xl mb-6 text-sm font-semibold backdrop-blur-md">
-      <button id="tabLinksBtn" type="button" class="py-2.5 rounded-xl transition text-white bg-gradient-to-r from-brand-600 to-indigo-600 shadow-md flex items-center justify-center gap-2 cursor-pointer">
-        <i class="fa-solid fa-link text-xs"></i> Links
+      <button id="tabLinksBtn" type="button" class="py-2.5 rounded-xl transition text-white bg-gradient-to-r from-brand-600 to-indigo-600 shadow-md shadow-brand-600/30 flex items-center justify-center gap-2 cursor-pointer">
+        <i class="fa-solid fa-link text-xs"></i>
+        Links
       </button>
       <button id="tabToolsBtn" type="button" class="py-2.5 rounded-xl transition text-slate-400 hover:text-white flex items-center justify-center gap-2 cursor-pointer">
-        <i class="fa-solid fa-screwdriver-wrench text-xs"></i> Tools
+        <i class="fa-solid fa-screwdriver-wrench text-xs"></i>
+        Tools
       </button>
     </div>
 
@@ -77,20 +99,17 @@
         <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
         <span class="font-semibold text-emerald-400">Admin Mode</span>
       </span>
-      <div class="flex items-center gap-1.5">
-        <button id="openAddModalBtn" type="button" class="bg-brand-600 hover:bg-brand-500 text-white px-2.5 py-1.5 rounded-xl font-semibold text-xs transition shadow-md flex items-center gap-1 cursor-pointer">
-          <i class="fa-solid fa-plus text-[10px]"></i> Add
+      <div class="flex items-center gap-2">
+        <button id="openAddModalBtn" type="button" class="bg-brand-600 hover:bg-brand-500 text-white px-3.5 py-1.5 rounded-xl font-semibold text-xs transition shadow-md shadow-brand-600/30 flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-plus text-[11px]"></i> Add Item
         </button>
-        <button id="exportJsonBtn" type="button" class="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1.5 rounded-xl font-semibold text-xs transition shadow-md flex items-center gap-1 cursor-pointer">
-          <i class="fa-solid fa-download text-[10px]"></i> Export JSON
-        </button>
-        <button id="logoutBtn" type="button" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer">
+        <button id="logoutBtn" type="button" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer">
           Exit
         </button>
       </div>
     </div>
 
-    <!-- Container -->
+    <!-- Links / Tools Container -->
     <div id="linksContainer" class="w-full space-y-3.5"></div>
 
     <!-- Empty State -->
@@ -98,13 +117,15 @@
       <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-900 flex items-center justify-center text-slate-500 mb-3 border border-slate-800 shadow-inner">
         <i class="fa-solid fa-folder-open text-2xl"></i>
       </div>
-      <p id="emptyStateText" class="text-sm font-semibold text-slate-300 mb-1">No items found.</p>
+      <p id="emptyStateText" class="text-sm font-semibold text-slate-300 mb-1">No items yet.</p>
+      <p class="text-xs text-slate-500">Unlock admin mode below to add links!</p>
     </div>
+
   </main>
 
-  <!-- Footer -->
+  <!-- Footer with Admin Unlock Button -->
   <footer class="w-full py-6 border-t border-slate-900/80 text-center relative z-10">
-    <button id="openAuthModalBtn" type="button" class="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-brand-300 transition cursor-pointer px-4 py-2 rounded-xl bg-slate-900/70 border border-slate-800/80">
+    <button id="openAuthModalBtn" type="button" class="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-brand-300 transition cursor-pointer px-4 py-2 rounded-xl bg-slate-900/70 hover:bg-slate-900 border border-slate-800/80 shadow-md">
       <i class="fa-solid fa-shield-halved text-brand-400 text-xs"></i>
       <span id="authBtnLabel" class="font-medium">Admin Unlock</span>
     </button>
@@ -113,7 +134,7 @@
   <!-- Admin Passcode Modal -->
   <div id="authModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-sm shadow-2xl relative">
-      <button id="closeAuthModalBtn" type="button" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm p-2 cursor-pointer">
+      <button id="closeAuthModalBtn" type="button" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm cursor-pointer p-2">
         <i class="fa-solid fa-xmark"></i>
       </button>
       <div class="text-center mb-6">
@@ -121,12 +142,16 @@
           <i class="fa-solid fa-lock"></i>
         </div>
         <h3 class="text-xl font-bold text-white">Unlock Admin</h3>
+        <p class="text-xs text-slate-400 mt-1">Enter passcode to add and manage links</p>
       </div>
-      <form id="authForm" class="space-y-4" onsubmit="return false;">
-        <input type="password" id="adminPasscode" required placeholder="Enter passcode"
-          class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-brand-500 text-center font-mono tracking-widest">
+
+      <form id="authForm" class="space-y-4">
+        <div>
+          <input type="password" id="adminPasscode" required placeholder="Enter passcode"
+            class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-brand-500 transition text-center tracking-widest font-mono">
+        </div>
         <p id="authError" class="text-red-400 text-xs text-center hidden font-medium"></p>
-        <button id="authSubmitBtn" type="button" class="w-full py-3 bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-semibold rounded-xl text-sm transition cursor-pointer">
+        <button type="submit" class="w-full py-3 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-semibold rounded-xl text-sm transition shadow-lg shadow-brand-600/25 cursor-pointer">
           Unlock Admin
         </button>
       </form>
@@ -136,268 +161,368 @@
   <!-- Add/Edit Item Modal -->
   <div id="linkModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-md shadow-2xl relative">
-      <button id="closeLinkModalBtn" type="button" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm p-2 cursor-pointer">
+      <button id="closeLinkModalBtn" type="button" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm cursor-pointer p-2">
         <i class="fa-solid fa-xmark"></i>
       </button>
+      
       <h3 id="linkModalTitle" class="text-xl font-bold text-white mb-4">Add New Item</h3>
-      <form id="linkForm" class="space-y-4" onsubmit="return false;">
+
+      <form id="linkForm" class="space-y-4">
         <input type="hidden" id="linkId">
+
         <div>
           <label class="block text-xs font-semibold text-slate-400 mb-1">Category Tab</label>
-          <select id="linkCategory" class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm cursor-pointer">
+          <select id="linkCategory" class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-brand-500 transition cursor-pointer">
             <option value="links">Links</option>
             <option value="tools">Tools</option>
           </select>
         </div>
+
         <div>
           <label class="block text-xs font-semibold text-slate-400 mb-1">Title</label>
-          <input type="text" id="linkTitle" required placeholder="e.g. Google" class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm">
+          <input type="text" id="linkTitle" required placeholder="e.g. My Portfolio or ChatGPT"
+            class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-brand-500 transition">
         </div>
+
         <div>
           <label class="block text-xs font-semibold text-slate-400 mb-1">URL</label>
-          <input type="text" id="linkUrl" required placeholder="example.com" class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm">
+          <input type="text" id="linkUrl" required placeholder="example.com"
+            class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-brand-500 transition">
         </div>
+
         <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Icon Class</label>
-          <input type="text" id="linkIcon" placeholder="fa-solid fa-globe" class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm font-mono text-xs">
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Icon (FontAwesome Class)</label>
+          <input type="text" id="linkIcon" placeholder="e.g. fa-solid fa-globe or fa-brands fa-github"
+            class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-brand-500 transition font-mono text-xs">
         </div>
-        <button id="saveItemBtn" type="button" class="w-full py-3 bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-semibold rounded-xl text-sm transition cursor-pointer">
-          Save Item
-        </button>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full py-3 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-semibold rounded-xl text-sm transition shadow-lg shadow-brand-600/25 cursor-pointer">
+            Save Item
+          </button>
+        </div>
       </form>
     </div>
   </div>
 
+  <!-- Shared GitHub-backed data client -->
   <script>
-    (function() {
-      const RAW_GITHUB_JSON_URL = 'https://raw.githubusercontent.com/walrus245/treedesk25/main/links.json';
-      const LOCAL_KEY = 'linkvault_items_data';
+    /*
+      Royal Math shared links client.
+      Set API_BASE to your deployed Cloudflare Worker URL.
+      Public read fallback: jsDelivr -> raw GitHub.
+      Admin writes always go through the Worker; never put a GitHub token here.
+    */
+    const API_BASE = "https://royal-math-api.mathadviser2023.workers.dev";
+    const CDN_JSON_URL = "https://cdn.jsdelivr.net/gh/walrus245/treedesk25@main/links.json";
+    const RAW_JSON_URL = "https://raw.githubusercontent.com/walrus245/treedesk25/main/links.json";
 
-      let isAdmin = false;
-      let currentTab = 'links';
-      let allItems = [
-        { id: '1', category: 'links', title: 'Google', url: 'https://google.com', icon: 'fa-solid fa-magnifying-glass' },
-        { id: '2', category: 'tools', title: 'GitHub Repo', url: 'https://github.com/walrus245/treedesk25', icon: 'fa-brands fa-github' }
-      ];
+    let isAdmin = false;
+    let adminPassword = "";
+    let currentTab = "links";
+    let allItems = [];
+    let isSaving = false;
 
-      function init() {
-        // Direct event bindings with inline function handlers
-        document.getElementById('tabLinksBtn').onclick = function() { switchTab('links'); };
-        document.getElementById('tabToolsBtn').onclick = function() { switchTab('tools'); };
+    const $ = (id) => document.getElementById(id);
+    const adminBanner = $("adminBanner");
+    const linksContainer = $("linksContainer");
+    const emptyState = $("emptyState");
+    const emptyStateText = $("emptyStateText");
+    const authModal = $("authModal");
+    const authForm = $("authForm");
+    const authError = $("authError");
+    const adminPasscode = $("adminPasscode");
+    const authBtnLabel = $("authBtnLabel");
+    const linkModal = $("linkModal");
+    const linkForm = $("linkForm");
+    const linkModalTitle = $("linkModalTitle");
+    const tabLinksBtn = $("tabLinksBtn");
+    const tabToolsBtn = $("tabToolsBtn");
 
-        document.getElementById('openAuthModalBtn').onclick = function() {
-          if (!isAdmin) document.getElementById('authModal').classList.remove('hidden');
-        };
-        document.getElementById('closeAuthModalBtn').onclick = function() {
-          document.getElementById('authModal').classList.add('hidden');
-        };
-        document.getElementById('authSubmitBtn').onclick = handleAuth;
-        document.getElementById('adminPasscode').onkeyup = function(e) {
-          if (e.key === 'Enter') handleAuth();
-        };
-
-        document.getElementById('logoutBtn').onclick = function() {
-          isAdmin = false;
-          document.getElementById('adminBanner').classList.add('hidden');
-          document.getElementById('authBtnLabel').textContent = 'Admin Unlock';
-          renderItems();
-        };
-
-        document.getElementById('openAddModalBtn').onclick = function() {
-          document.getElementById('linkModalTitle').textContent = 'Add New Item';
-          document.getElementById('linkId').value = '';
-          document.getElementById('linkTitle').value = '';
-          document.getElementById('linkUrl').value = '';
-          document.getElementById('linkIcon').value = '';
-          document.getElementById('linkCategory').value = currentTab;
-          document.getElementById('linkModal').classList.remove('hidden');
-        };
-
-        document.getElementById('closeLinkModalBtn').onclick = function() {
-          document.getElementById('linkModal').classList.add('hidden');
-        };
-
-        document.getElementById('saveItemBtn').onclick = handleSaveItem;
-
-        document.getElementById('exportJsonBtn').onclick = function() {
-          const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allItems, null, 2));
-          const downloadAnchor = document.createElement('a');
-          downloadAnchor.setAttribute("href", dataStr);
-          downloadAnchor.setAttribute("download", "links.json");
-          document.body.appendChild(downloadAnchor);
-          downloadAnchor.click();
-          downloadAnchor.remove();
-        };
-
-        // Render starter items immediately
-        renderItems();
-
-        // Fetch live GitHub JSON
-        fetchLiveLinks();
+    function setStatus(message, kind = "info") {
+      let status = $("dataStatus");
+      if (!status) {
+        status = document.createElement("p");
+        status.id = "dataStatus";
+        status.className = "w-full text-center text-xs mt-3";
+        linksContainer?.parentNode?.insertBefore(status, linksContainer.nextSibling);
       }
+      status.textContent = message;
+      status.className = "w-full text-center text-xs mt-3 " +
+        (kind === "error" ? "text-red-400" : kind === "success" ? "text-emerald-400" : "text-slate-500");
+    }
 
-      function handleAuth() {
-        const pass = document.getElementById('adminPasscode').value.trim();
-        const errorEl = document.getElementById('authError');
-        if (pass === 'password123') {
-          isAdmin = true;
-          document.getElementById('authModal').classList.add('hidden');
-          document.getElementById('adminBanner').classList.remove('hidden');
-          document.getElementById('authBtnLabel').textContent = 'Admin Unlocked';
-          errorEl.classList.add('hidden');
-          document.getElementById('adminPasscode').value = '';
-          renderItems();
-        } else {
-          errorEl.textContent = 'Incorrect passcode.';
-          errorEl.classList.remove('hidden');
-        }
-      }
+    function validateItems(data) {
+      if (!Array.isArray(data)) throw new Error("The links database must be a JSON array.");
+      return data.map((item, index) => {
+        if (!item || typeof item !== "object") throw new Error(`Invalid link at position ${index + 1}.`);
+        const id = String(item.id ?? "").trim();
+        const title = String(item.title ?? "").trim();
+        const category = String(item.category ?? "links").trim();
+        const url = String(item.url ?? "").trim();
+        const icon = String(item.icon ?? "").trim();
+        if (!id || !title || !url) throw new Error(`Link ${index + 1} is missing an ID, title, or URL.`);
+        if (!["links", "tools"].includes(category)) throw new Error(`Link "${title}" has an unsupported category.`);
+        const parsed = new URL(url);
+        if (!["http:", "https:"].includes(parsed.protocol)) throw new Error(`Link "${title}" must use HTTP or HTTPS.`);
+        return { id, category, title, url: parsed.href, icon };
+      });
+    }
 
-      function switchTab(tab) {
-        currentTab = tab;
-        const activeClass = 'py-2.5 rounded-xl transition text-white bg-gradient-to-r from-brand-600 to-indigo-600 shadow-md flex items-center justify-center gap-2 cursor-pointer';
-        const inactiveClass = 'py-2.5 rounded-xl transition text-slate-400 hover:text-white flex items-center justify-center gap-2 cursor-pointer';
+    async function fetchJson(url) {
+      const response = await fetch(url, { cache: "no-store", headers: { "Accept": "application/json" } });
+      if (!response.ok) throw new Error(`Request failed (${response.status})`);
+      return response.json();
+    }
 
-        document.getElementById('tabLinksBtn').className = tab === 'links' ? activeClass : inactiveClass;
-        document.getElementById('tabToolsBtn').className = tab === 'tools' ? activeClass : inactiveClass;
-        renderItems();
-      }
+    async function loadItems() {
+      setStatus("Loading shared links…");
+      const sources = [];
+      if (API_BASE && !API_BASE.includes("YOUR-WORKER-NAME")) sources.push(`${API_BASE.replace(/\/$/, "")}/api/links`);
+      sources.push(`${CDN_JSON_URL}?v=${Date.now()}`);
+      sources.push(`${RAW_JSON_URL}?v=${Date.now()}`);
 
-      async function fetchLiveLinks() {
+      let lastError;
+      for (const source of sources) {
         try {
-          const res = await fetch(`${RAW_GITHUB_JSON_URL}?t=${Date.now()}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (Array.isArray(data) && data.length > 0) {
-              allItems = data;
-              localStorage.setItem(LOCAL_KEY, JSON.stringify(allItems));
-              renderItems();
-            }
-          }
-        } catch (e) {
-          const saved = localStorage.getItem(LOCAL_KEY);
-          if (saved) {
-            try { allItems = JSON.parse(saved); renderItems(); } catch (err) {}
-          }
-        }
-      }
-
-      function saveItems() {
-        localStorage.setItem(LOCAL_KEY, JSON.stringify(allItems));
-        renderItems();
-      }
-
-      function renderItems() {
-        const container = document.getElementById('linksContainer');
-        const emptyState = document.getElementById('emptyState');
-        const emptyStateText = document.getElementById('emptyStateText');
-
-        container.innerHTML = '';
-        const filtered = allItems.filter(item => (item.category || 'links') === currentTab);
-
-        if (filtered.length === 0) {
-          emptyStateText.textContent = `No ${currentTab} created yet.`;
-          emptyState.classList.remove('hidden');
+          const data = await fetchJson(source);
+          allItems = validateItems(data);
+          renderItems();
+          setStatus(`Links loaded · ${new URL(source).hostname}`, "success");
           return;
+        } catch (error) {
+          console.warn("Could not load links from", source, error);
+          lastError = error;
         }
-        emptyState.classList.add('hidden');
+      }
+      allItems = [];
+      renderItems();
+      setStatus(`Couldn't load links. ${lastError?.message || "Check your connection."}`, "error");
+    }
 
-        filtered.forEach(item => {
-          const itemEl = document.createElement('div');
-          itemEl.className = 'group relative flex items-center w-full';
-
-          const defaultIcon = currentTab === 'tools' ? 'fa-solid fa-wrench' : 'fa-solid fa-arrow-up-right-from-square';
-          const iconClass = item.icon && item.icon.trim() !== '' ? item.icon : defaultIcon;
-
-          itemEl.innerHTML = `
-            <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" 
-               class="glass-card link-hover flex items-center justify-between w-full px-5 py-4 rounded-2xl text-slate-100 font-medium shadow-md">
-              <div class="flex items-center gap-3.5 truncate pr-16">
-                <div class="w-8 h-8 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 shrink-0">
-                  <i class="${iconClass} text-sm"></i>
-                </div>
-                <span class="truncate text-sm font-semibold">${escapeHtml(item.title)}</span>
-              </div>
-              <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-brand-400 group-hover:translate-x-1 transition-all"></i>
-            </a>
-          `;
-
-          if (isAdmin) {
-            const adminControls = document.createElement('div');
-            adminControls.className = 'absolute right-3 flex items-center gap-1 bg-slate-950/90 p-1 rounded-xl border border-slate-800 shadow-xl z-10';
-
-            const editBtn = document.createElement('button');
-            editBtn.type = 'button';
-            editBtn.className = 'p-1.5 text-slate-400 hover:text-brand-400 text-xs transition cursor-pointer';
-            editBtn.innerHTML = '<i class="fa-solid fa-pen"></i>';
-            editBtn.onclick = function() { editItem(item.id); };
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.type = 'button';
-            deleteBtn.className = 'p-1.5 text-slate-400 hover:text-red-400 text-xs transition cursor-pointer';
-            deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
-            deleteBtn.onclick = function() { deleteItem(item.id); };
-
-            adminControls.appendChild(editBtn);
-            adminControls.appendChild(deleteBtn);
-            itemEl.appendChild(adminControls);
-          }
-
-          container.appendChild(itemEl);
+    async function saveItems() {
+      if (!isAdmin || !adminPassword || isSaving) return;
+      isSaving = true;
+      const saveButton = linkForm?.querySelector('button[type="submit"]');
+      if (saveButton) {
+        saveButton.disabled = true;
+        saveButton.textContent = "Saving to GitHub…";
+      }
+      setStatus("Saving changes to the shared GitHub database…");
+      try {
+        const response = await fetch(`${API_BASE.replace(/\/$/, "")}/api/links`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${adminPassword}`
+          },
+          body: JSON.stringify(allItems)
         });
-      }
-
-      function handleSaveItem() {
-        if (!isAdmin) return;
-        const id = document.getElementById('linkId').value;
-        const category = document.getElementById('linkCategory').value || currentTab;
-        const title = document.getElementById('linkTitle').value.trim();
-        let url = document.getElementById('linkUrl').value.trim();
-        const icon = document.getElementById('linkIcon').value.trim();
-
-        if (!title || !url) return;
-        if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
-
-        if (id) {
-          const idx = allItems.findIndex(i => i.id === id);
-          if (idx !== -1) allItems[idx] = { id, category, title, url, icon };
-        } else {
-          allItems.unshift({ id: 'item-' + Date.now(), category, title, url, icon });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.error || `Save failed (${response.status})`);
+        renderItems();
+        setStatus(result.cdnPurged === false
+          ? "Saved to GitHub. CDN purge did not confirm; CDN copies may take a little longer to refresh."
+          : "Saved to GitHub. Connected sites can now load the updated links.", result.cdnPurged === false ? "info" : "success");
+        if (linkModal) linkModal.classList.add("hidden");
+      } catch (error) {
+        setStatus(`Save failed: ${error.message}`, "error");
+        alert(`Your changes were not confirmed as saved.\n\n${error.message}`);
+        await loadItems();
+      } finally {
+        isSaving = false;
+        if (saveButton) {
+          saveButton.disabled = false;
+          saveButton.textContent = "Save Item";
         }
-
-        saveItems();
-        document.getElementById('linkModal').classList.add('hidden');
       }
+    }
 
-      function editItem(id) {
-        const item = allItems.find(i => i.id === id);
-        if (!item) return;
-
-        document.getElementById('linkModalTitle').textContent = 'Edit Item';
-        document.getElementById('linkId').value = item.id;
-        document.getElementById('linkCategory').value = item.category || 'links';
-        document.getElementById('linkTitle').value = item.title;
-        document.getElementById('linkUrl').value = item.url;
-        document.getElementById('linkIcon').value = item.icon || '';
-        document.getElementById('linkModal').classList.remove('hidden');
+    function switchTab(tab) {
+      currentTab = tab;
+      const activeClass = "py-2.5 rounded-xl transition text-white bg-gradient-to-r from-brand-600 to-indigo-600 shadow-md shadow-brand-600/30 flex items-center justify-center gap-2 cursor-pointer";
+      const inactiveClass = "py-2.5 rounded-xl transition text-slate-400 hover:text-white flex items-center justify-center gap-2 cursor-pointer";
+      if (tabLinksBtn && tabToolsBtn) {
+        tabLinksBtn.className = tab === "links" ? activeClass : inactiveClass;
+        tabToolsBtn.className = tab === "tools" ? activeClass : inactiveClass;
       }
+      renderItems();
+    }
 
-      function deleteItem(id) {
-        if (!isAdmin) return;
-        allItems = allItems.filter(i => i.id !== id);
-        saveItems();
+    function safeIconClass(value, fallback) {
+      const candidate = String(value || "").trim();
+      return /^[a-z0-9 -]+$/i.test(candidate) ? candidate : fallback;
+    }
+
+    function renderItems() {
+      if (!linksContainer) return;
+      linksContainer.replaceChildren();
+      const filtered = allItems.filter(item => item.category === currentTab);
+      if (!filtered.length) {
+        if (emptyStateText) emptyStateText.textContent = `No ${currentTab} created yet.`;
+        emptyState?.classList.remove("hidden");
+        return;
       }
+      emptyState?.classList.add("hidden");
 
-      function escapeHtml(str) {
-        return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+      filtered.forEach(item => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "group relative flex items-center w-full";
+
+        const anchor = document.createElement("a");
+        anchor.href = item.url;
+        anchor.target = "_blank";
+        anchor.rel = "noopener noreferrer";
+        anchor.className = "glass-card link-hover flex items-center justify-between w-full px-5 py-4 rounded-2xl text-slate-100 font-medium shadow-md";
+
+        const left = document.createElement("div");
+        left.className = "flex items-center gap-3.5 truncate pr-16";
+        const iconBox = document.createElement("div");
+        iconBox.className = "w-8 h-8 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 shrink-0";
+        const icon = document.createElement("i");
+        icon.className = `${safeIconClass(item.icon, currentTab === "tools" ? "fa-solid fa-wrench" : "fa-solid fa-arrow-up-right-from-square")} text-sm`;
+        iconBox.append(icon);
+        const title = document.createElement("span");
+        title.className = "truncate text-sm font-semibold";
+        title.textContent = item.title;
+        left.append(iconBox, title);
+
+        const arrow = document.createElement("i");
+        arrow.className = "fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-brand-400 group-hover:translate-x-1 transition-all";
+        anchor.append(left, arrow);
+        wrapper.append(anchor);
+
+        if (isAdmin) {
+          const controls = document.createElement("div");
+          controls.className = "absolute right-3 flex items-center gap-1 bg-slate-950/90 p-1 rounded-xl border border-slate-800 shadow-xl z-10 backdrop-blur-sm";
+          const edit = document.createElement("button");
+          edit.type = "button";
+          edit.className = "p-1.5 text-slate-400 hover:text-brand-400 text-xs transition cursor-pointer";
+          edit.innerHTML = '<i class="fa-solid fa-pen"></i>';
+          edit.setAttribute("aria-label", `Edit ${item.title}`);
+          edit.addEventListener("click", () => handleEditLink(item.id));
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.className = "p-1.5 text-slate-400 hover:text-red-400 text-xs transition cursor-pointer";
+          remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
+          remove.setAttribute("aria-label", `Delete ${item.title}`);
+          remove.addEventListener("click", () => handleDeleteLink(item.id));
+          controls.append(edit, remove);
+          wrapper.append(controls);
+        }
+        linksContainer.append(wrapper);
+      });
+    }
+
+    function openAddModal() {
+      linkModalTitle.textContent = "Add New Item";
+      linkForm.reset();
+      $("linkId").value = "";
+      $("linkCategory").value = currentTab;
+      linkModal.classList.remove("hidden");
+    }
+
+    function handleEditLink(id) {
+      const item = allItems.find(link => link.id === id);
+      if (!item) return;
+      linkModalTitle.textContent = "Edit Item";
+      $("linkId").value = item.id;
+      $("linkCategory").value = item.category;
+      $("linkTitle").value = item.title;
+      $("linkUrl").value = item.url;
+      $("linkIcon").value = item.icon || "";
+      linkModal.classList.remove("hidden");
+    }
+
+    async function handleDeleteLink(id) {
+      if (!isAdmin) return;
+      const item = allItems.find(link => link.id === id);
+      if (!item || !confirm(`Delete "${item.title}" from the shared links database?`)) return;
+      const previous = [...allItems];
+      allItems = allItems.filter(link => link.id !== id);
+      renderItems();
+      await saveItems();
+      if (!allItems.some(link => link.id === id)) return;
+      allItems = previous;
+      renderItems();
+    }
+
+    $("tabLinksBtn")?.addEventListener("click", () => switchTab("links"));
+    $("tabToolsBtn")?.addEventListener("click", () => switchTab("tools"));
+    $("openAuthModalBtn")?.addEventListener("click", () => { if (!isAdmin) authModal.classList.remove("hidden"); });
+    $("closeAuthModalBtn")?.addEventListener("click", () => authModal.classList.add("hidden"));
+    $("closeLinkModalBtn")?.addEventListener("click", () => linkModal.classList.add("hidden"));
+    $("openAddModalBtn")?.addEventListener("click", openAddModal);
+    $("logoutBtn")?.addEventListener("click", () => {
+      isAdmin = false;
+      adminPassword = "";
+      adminBanner.classList.add("hidden");
+      authBtnLabel.textContent = "Admin Unlock";
+      renderItems();
+      setStatus("Admin session ended.");
+    });
+
+    authForm?.addEventListener("submit", async event => {
+      event.preventDefault();
+      const password = adminPasscode.value;
+      authError.classList.add("hidden");
+      if (!API_BASE || API_BASE.includes("YOUR-WORKER-NAME")) {
+        authError.textContent = "Admin API is not configured yet. Set API_BASE to your deployed Worker URL.";
+        authError.classList.remove("hidden");
+        return;
       }
+      try {
+        const response = await fetch(`${API_BASE.replace(/\/$/, "")}/api/auth`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password })
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.error || "Incorrect passcode.");
+        isAdmin = true;
+        adminPassword = password;
+        authModal.classList.add("hidden");
+        adminBanner.classList.remove("hidden");
+        authBtnLabel.textContent = "Admin Unlocked";
+        adminPasscode.value = "";
+        renderItems();
+        setStatus("Admin unlocked. Changes will be saved to GitHub.", "success");
+      } catch (error) {
+        authError.textContent = error.message;
+        authError.classList.remove("hidden");
+      }
+    });
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+    linkForm?.addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!isAdmin) return;
+      const id = $("linkId").value.trim();
+      const category = $("linkCategory").value;
+      const title = $("linkTitle").value.trim();
+      let url = $("linkUrl").value.trim();
+      const icon = $("linkIcon").value.trim();
+      if (!/^https?:\/\//i.test(url)) url = `https://${url}`;
+      try {
+        const parsed = new URL(url);
+        if (!["http:", "https:"].includes(parsed.protocol)) throw new Error("Only HTTP and HTTPS links are allowed.");
+      } catch {
+        alert("Enter a valid website URL, such as example.com.");
+        return;
+      }
+      if (!title) return;
+      if (id) {
+        const index = allItems.findIndex(item => item.id === id);
+        if (index < 0) return;
+        allItems[index] = { ...allItems[index], category, title, url, icon };
       } else {
-        init();
+        allItems.unshift({ id: crypto.randomUUID ? crypto.randomUUID() : `item-${Date.now()}`, category, title, url, icon });
       }
-    })();
+      renderItems();
+      await saveItems();
+    });
+
+    // Initial load always comes from the shared remote JSON, never localStorage.
+    loadItems();
   </script>
 </body>
 </html>
