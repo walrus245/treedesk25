@@ -5,19 +5,5 @@
     "title": "achroma",
     "url": "https://githubraw.com/donoEla/reoo/main/v0001/index.html",
     "icon": "https://githubraw.com/donoEla/reoo/main/v0001/index.html"
-  },
-  {
-    "id": "2",
-    "category": "links",
-    "title": "YouTube",
-    "url": "https://youtube.com/",
-    "icon": "fa-brands fa-youtube"
-  },
-  {
-    "id": "3",
-    "category": "tools",
-    "title": "GitHub",
-    "url": "https://github.com/",
-    "icon": "fa-brands fa-github"
   }
 ]
