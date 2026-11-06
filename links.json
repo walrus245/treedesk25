@@ -1,5 +1,12 @@
 [
   {
+    "id": "5c5e7b89-2439-4d4f-b283-14ae6395746b",
+    "category": "tools",
+    "title": "link gen",
+    "url": "https://sites.google.com/view/jslinkmaker",
+    "icon": ""
+  },
+  {
     "id": "f20e46f3-6c6e-4e5e-893f-ee7371027d9b",
     "category": "tools",
     "title": "link sorter",
