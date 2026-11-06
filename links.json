@@ -7,13 +7,6 @@
     "icon": "https://githubraw.com/donoEla/reoo/main/v0001/index.html"
   },
   {
-    "id": "1",
-    "category": "links",
-    "title": "Google",
-    "url": "https://google.com/",
-    "icon": "fa-solid fa-magnifying-glass"
-  },
-  {
     "id": "2",
     "category": "links",
     "title": "YouTube",
